@@ -1,0 +1,39 @@
+#nav{
+    width: 1920px;
+    height: 70px;
+    margin: 0 auto; 
+}
+#logo{
+    float: left;
+    width: 152px;
+    height: 28px;
+    margin: 21px 0;
+    background: url(../img/iconlist_1.png) -870px -100px;
+}
+#rightUl{
+    float: right;
+    height: 70px;
+    line-height: 70px;
+}
+#rightUl li{
+    float: left;
+}
+#rightUl li a{
+    padding: 0 20px;
+    display: block;
+}
+#androidDown,#comingSoon{
+    width: 86px;
+    height: 26px;
+    margin: 22px 10px;
+}
+#androidDown{
+    background: url(../img/iconlist_2.png) -1655px -509px;
+}
+#comingSoon{
+    background: url(../img/iconlist_2.png) -1655px -536px;
+}
+
+#rightUl li a:hover{
+    border-bottom: 3px solid red;
+}

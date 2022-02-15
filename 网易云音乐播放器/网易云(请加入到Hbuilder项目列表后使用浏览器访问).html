@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>网易云音乐</title>
+		<link rel="stylesheet" href="//at.alicdn.com/t/font_2607534_6qegomu1f0r.css">
+		<link rel="stylesheet" type="text/css" href="music/musicindex.css"/>
+	</head>
+	<body>
+		<div id="box">
+			<div id="topbox">
+				<div id="logo">
+				</div>
+				<div id="sousuo">
+					<input type="text" placeholder="搜索音乐" name=""/>
+				</div>
+				<div id="rightlogo">
+					<ul>
+					<li><i class="icon iconfont icon-denglu"></i><span>登录</span></li>
+					<li><i class="icon iconfont icon-ziyuan57"></i>皮肤</li>
+					<li>
+						<div id="skin">
+						<div></div>
+					</div></li>
+					</ul>
+				</div>
+				<div id="loginbox">
+					<!--<div class="logininfo">
+						<p>用户名</p>
+						<p>密码</p>
+					</div>-->
+					<ul class="logininput">
+						<li><span>用户名</span><input id="username" type="text" /></li>
+						<li><span>登录</span><input id="passwd" type="password" /></li>
+						<li><input type="checkbox" id="savepasswd" />是否记住账号密码</li> 
+					</ul>
+					<div class="loginbutton">
+						<input type="button"  id="loginb" value="登录"/>
+						<input type="button"id="cancel" value="取消"/>
+					</div>
+					
+					
+				</div>
+				<div id="skinbox">
+					<ul>
+						<li id="li0"></li>
+						<li id="li1"></li>
+						<li id="li2"></li>
+						<li id="li3"></li>
+						<li id="li4"></li>
+						<li id="li5"></li>
+						<li id="li6"></li>
+						<li id="li7"></li>
+						<li id="li8"></li>
+						<li id="li9"></li>
+					</ul>
+				</div>
+			</div>
+			<div id="contentbox">
+				<div class="cover">
+					<div id="bigcircle">
+						<div id="smallcircle">
+							<img src="./img/1.jpeg"/">
+						</div>
+					</div>
+					<div id="downitems">
+						<ul>
+							<li id="likes">
+							<i class="icon iconfont icon-56aixin"></i>
+							<!--<i class="icon iconfont icon-love"></i>-->
+							</li>
+							<li id="comments">
+							<i class="icon iconfont icon-pinglun"></i>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div id="lyric">
+					<h2>江南</h2>
+					<span id="albumname">专辑: </span><span id="singername">歌手:</span>
+					<div id="lyricDiv">
+							<ul id="lyricList">
+					        
+							</ul>
+					</div>
+				</div>
+				<div id="allcomments">
+				
+			</div>
+			</div>
+			<div id="footbox">
+				<div id="musiclistdiv">
+					<h3>播放列表</h3>
+					<ul id="musicList">
+					</ul>
+				</div>
+				<div id="historylistdiv">
+					<h3>历史列表</h3>
+					<ul id="historylist">
+					</ul>
+				</div>
+				<ul id="playlogo">
+					<li id="lastsong"><i class="icon iconfont icon-shangyishou"></i></li>
+					<li id="play">
+						<i class="icon iconfont icon-bofang"></i>
+						<!--<i class="icon iconfont icon-poweroff-circle-fill"></i>-->
+					</li>
+					<li id="nextsong"><i class="icon iconfont icon-xiayishou"></i></li>
+					<li id="allrange">
+						 <span id="currentTime">0:00</span>/<span id="allTime">0:00</span>
+						 <input type="range" name="" id="audioInput" min="0" max=10 step=0.1 value=0>
+					</li>
+					<li id="volume">
+						<i class="icon iconfont icon-yinliang"></i>
+						<!--<i class="icon iconfont icon-jingyin"></i>-->
+						<input type="range" name="" id="volInput" min="0" max=1 step="0.01" value="1"></li>
+					<li id="listlogo">
+						<i class="icon iconfont icon-liebiao"></i>
+					</li>
+					<li id="playMode">
+						<i class="icon iconfont icon-shunxubofang"></i>
+						<i class="icon iconfont icon-ziyuan"></i>
+						<i class="icon iconfont icon-danquxunhuan"></i>
+						<i class="icon iconfont icon-xunhuanbofang"></i>
+					</li>
+					<li id="historylists">
+						<i class="icon iconfont icon-history-full"></i>
+					</li>
+				</ul>
+				
+			</div>
+			<audio   src="music/jn.mp3" controls="controls" ></audio>
+			
+		</div>
+	</body>
+	<script src="jquery3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/data.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	//喜欢点击事件
+	console.log($("#contentbox").css("background-color"));
+	$("#likes").click(function(){
+		//$("#likes i").toggleClass("icon iconfont icon-love");
+		if($("#likes i").hasClass("icon-56aixin")){
+			$("#likes i").attr("class","icon iconfont icon-love");
+			}else{
+				$("#likes i").attr("class","icon iconfont icon-56aixin");
+			}
+			
+	})
+	
+	//自动获取data里面歌曲信息，并加入到body结构中
+	//musicData.length;
+	//console.log(musicData[1].cover);
+	//console.log(musicData[1].msg[1].megId);
+	/*<div id="Div2">
+		<div class="return">返回</div>
+		<h1>精彩评论</h1>
+		<div class="commentsarea">
+			<ul>
+				<li>
+					<img src="http://p1.music.126.net/2diP5uOrailFol-qgmprUQ==/109951163243492839.jpg" >
+					<div>
+						<span class="name">hahahaha</span>
+						<span class="dates">2018-08-01 14:36:02</span>
+						<p>
+							3还依稀记得，04年。大学毕业后的第一份实习工作。手机还不支持MP3 播放，一个同事小姑娘说想听《江南》，当时这首歌超火。于是哥们我就拿单位座机打我自己手机，不接，
+							因为我当时的手机彩铃就是《江南》，就这样一遍遍打，一遍遍听…
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="commentswrite">
+			<input type="text" placeholder="写写你想说的话吧" >
+			<input type="button" class="button" value="提交">
+		</div>
+	</div>*/
+	for(var i = 0;i < musicData.length;i++){
+		var allcomments = $("#allcomments");
+		var div =$(`
+		<div>
+			<div class="return">返回</div>
+			<h1>精彩评论</h1>
+			<div class="commentsarea"><ul></ul></div>
+			<div class="commentswrite">
+				<input type="text" placeholder="写写你想说的话吧">
+				<input type="button" class="button" value="提交">
+			</div>
+		</div>
+		`)
+		allcomments.append(div);
+		$("#allcomments>div").eq(i).attr("id","Div"+i);
+		var ul =  $("#allcomments ul").eq(i);
+		console.log(ul);
+		//console.log(musicData[i].msg[1].length);
+		for(var j = 0;j < musicData[i].msg.length;j++){
+			var li = $(`
+			<li>
+				<img src="${musicData[i].cover}">
+				<div>
+					<span class="name">用户${musicData[i].msg[j].megId}</span>
+					<span class="dates">${musicData[i].msg[j].date}</span>
+					<p>${musicData[i].msg[j].megCon}</p>
+				</div>
+			</li>
+		`)
+		ul.append(li);
+		}
+		
+	}
+	
+	//点击评论获取不同的评论内容
+	$("#comments i").click(function(){
+		var tempdivid = "Div"+musicIdx;
+		
+		//var tempdivid = "Div"+musicIdx;
+		
+		$("#"+tempdivid).show(500);
+		//评论增加
+		$("#"+tempdivid +" input:last").click(function(){
+			//console.log($("#"+tempdivid +" input:last"));
+			if(userid == 0){
+				alert("亲~ 登录就可以发表评论咯");
+				$("#"+tempdivid).hide(500);
+				return;
+			}
+			console.log(userid);
+			var nowdate = new Date();
+			//年月日
+			var nowMYM = nowdate.toLocaleDateString();
+			console.log(nowMYM);
+			var hours = nowdate.getHours();
+			//console.log(hours);
+			var minutes = nowdate.getMinutes();
+			//console.log(minutes);
+			var seconds = nowdate.getSeconds();
+			
+			var valu=$("#"+tempdivid + " .commentswrite input:first-child").val();
+			console.log(valu);
+			
+			var li = $(`<li>
+						<img src=${users[userid-1].pic}>
+						<div>
+							<span class="name">${users[userid-1].name}</span>
+							<span class="dates">${nowMYM} ${hours}:${minutes}:${seconds}</span>
+							<p>${valu}</p>
+						</div>
+						</li>`);
+				$("#"+tempdivid +" .commentsarea ul").append(li);
+				
+			$("#"+tempdivid + " .commentswrite input").eq(0).val("");
+			//return false;
+			});
+		$("#commentinput").val("");
+		$("#"+tempdivid +" .return").click(function(){
+			$("#"+tempdivid).hide(500);
+		})
+	})
+	//登陆界面
+	/*var loginshow = 0;
+	var userid = 0;*/
+	//登录小界面
+	var loginshow = false;
+	var userid = 0;
+ 	$("#rightlogo li .icon-denglu").click(function(){
+		loginshow = false;
+		userid = 0;
+		if(!loginshow){
+		$("#loginbox").css("display","block");
+		}
+	})
+	$("#loginb").click(function(){
+		var user = $("#username").val();
+		var passwd = $("#passwd").val();
+		for(var i = 0;i < users.length;i++ ){
+			if(users[i].name == user && users[i].pwd == passwd){
+				alert("登陆成功");
+				userid = users[i].id;
+					$("#rightlogo li img").eq(0).remove();
+					var img = `<img src=${users[userid-1].pic}>`;
+					$("#rightlogo li").eq(0).append(img);
+				//	$("#rightlogo li img").attr("src",users[i].pic);
+					$("#rightlogo li span").text(users[userid-1].name);
+					$("#loginbox").css("display","none");
+					if(!$("#savepasswd").prop("checked")){
+					//console.log()
+						$("#username").val("");
+						$("#passwd").val("");
+					}
+					break;
+			}
+			//用户名密码都没匹配到才能输出提示
+			if(i  == users.length-1){
+			alert("账户或密码错误，请重新输入");
+			$("#username").val("");
+			$("#passwd").val("");
+			}
+		}
+	})
+	$("#cancel").click(function(){
+		$("#loginbox").css("display","none");
+	})
+	
+	//皮肤换色
+	$("#rightlogo li:last-child div").click(function(){
+		$("#skinbox").slideDown();
+		
+	})
+	$("#skinbox li").click(function(){
+		$("#topbox").css("background-color",$(this).css("background-color"));
+		$("#footbox").css("background-color",$(this).css("background-color"));
+	})
+	//如果没有继续点击皮肤界面，点击其他部位，就将box收起来
+	 $(document).click(function(event) {
+	        var con = $("#rightlogo li:last-child div");
+			if(!con.is(event.target)){
+				$('#skinbox').slideUp();
+			}
+	     })
+	
+	/*$.each(colorlist,function(idx,col){
+		$(col).click
+	})*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	var myaudio = $("audio").get(0);
+	//1.播放和暂停
+	$("#play i").click(function(){
+		if(myaudio.paused){
+			myaudio.play();
+			$(this).attr("class", "icon iconfont icon-poweroff-circle-fill");
+			addHistoryList();
+		}else{
+			myaudio.pause();
+			$(this).attr("class", "icon iconfont icon-bofang");
+		}
+	});
+	//2.静音
+	var vol = myaudio.volume;
+	$("#volume i").click(function(){
+		if(myaudio.volume == 0){
+			myaudio.volume = vol;
+			$(this).attr("class","icon iconfont icon-yinliang");
+			$("#volInput").val(vol);
+			$("#volInput").css("background-size", myaudio.volume * 100  + '% 100%');
+		}else{
+			vol = myaudio.volume;
+			myaudio.volume = 0;
+			$(this).attr("class","icon iconfont icon-jingyin");
+			$("#volume input").val(0);
+			$("#volInput").css("background-size", '0% 100%');
+		}
+	});
+	//3.改变音量
+	$("#volInput").on("input",function(){
+		myaudio.volume = $(this).val();
+		if(myaudio.volume == 0){
+			$("#volume i").attr("class","icon iconfont icon-jingyin");
+		}else{
+			$("#volume i").attr("class","icon iconfont icon-yinliang");
+		}
+	})
+	//滑动条样式设计
+	//进度条
+	var temptime = 0;
+	$("#audioInput").on("input propertychange",function(){
+		 //var duval = $(this).val();
+		// $(this).attr('value', $(this).val());
+		// console.log($(this).val());
+		 //console.log($(this).attr("max")); 
+		 //console.log(temptime);
+		 $(this).css("background-size",temptime * 100/$(this).attr("max")  + '% 100%');
+	 });
+	//音量条
+	$("#volInput").on("input",function(){
+		console.log("音量改变");
+		$(this).css("background-size", myaudio.volume * 100  + '% 100%');
+	})
+	// $("input").css("background",this.value + '100%');	
+	//4.获取音乐总长度
+	//oncanplay 事件在用户可以开始播放视频/音频（audio/video）时触发,
+	//在视频/音频（audio/video）加载过程中，事件的触发顺序如下：
+	/*onloadstart
+	ondurationchange
+	onloadedmetadata
+	onloadeddata
+	onprogress
+	oncanplay
+	oncanplaythrough*/
+	myaudio.oncanplay = function(){
+		console.log(this.duration);
+		//var dur = formatSeconds(this.duration);
+		//console.log(dur);
+		$("#audioInput").attr("max",this.duration);
+		$("#allTime").text(formatSeconds(this.duration));
+	}
+	function formatSeconds(seconds){
+	    var secs = parseInt(seconds);//267
+	    var mins = parseInt(secs / 60);
+	    var s = secs % 60;
+	    return mins + ":" + (s > 9?s:('0'+s));
+	}
+	//5.音乐播放，进度条自动改变
+	//ontimeupdate 事件在视频/音频（audio/video）当前的播放位置发送改变时触发。
+	/*该事件通过以下方式调用：
+
+	播放视频/音频（audio/video）
+	重新定位视频/音频（audio/video）的播放位置。
+	提示： 该事件通常与 Video 对象的 currentTime 属性一起使用， 
+	该属性返回视频/音频（audio/video）的当前播放位置*/
+	//打开后再刷新就拿不总时间了
+	//var licount = 
+	myaudio.ontimeupdate = function(){
+		//console.log(this.currentTime);
+		temptime = this.currentTime;
+		$("#audioInput").val(this.currentTime);
+		$("#currentTime").text(formatSeconds(this.currentTime));
+		//滑动样式也要改变
+		$("#audioInput").css("background-size",(temptime+0.6) * 100/$("#audioInput").attr("max")  + '% 100%');
+		//歌词同步
+		if(isScroll){
+			lyricsynctemp();
+		}else{
+			lyricsync();
+		}
+	}
+	var lyricsynctemp = function(){""};
+	var lyricsync = function(){
+		//updatefunction();
+		var sec = parseInt(myaudio.currentTime);
+		for(var i = 0; i < $("#lyricList li").length;i++){
+			var li = $("#lyricList li").eq(i);
+			if(sec >= li.attr("time")){
+				$("#lyricList li").removeClass("licolor");
+				li.addClass("licolor");
+				$("#lyricDiv").scrollTop((i-10)*30);
+			}
+		}
+	}
+	var isScroll = 0;
+	var timer  = null;
+	//鼠标滚动后5秒返回原位置
+	$("#lyricDiv").on('mousewheel',function(){
+		//clearTimeout(timer);
+		isScroll = 1;
+		console.log("拖动");
+		timer = setTimeout(function(){
+			console.log("拖动");
+			isScroll = 0;
+		},5000)
+	});
+	
+	
+	
+	
+	//6.拖动进度条,改变音乐播放进度
+	$("#audioInput").on("mouseDown",function(){
+		vol == myaudio.volume;
+		myaudio.volume = 0;
+	})
+	$("audioIpnut").on("mouseup",function(){
+		myaudio.volume = vol;
+	})
+	//把拖动条的值赋值给audio的currenttime
+	$("#audioInput").on("input",function(){
+		//console.log($(this).val());
+		myaudio.currentTime = $(this).val();
+		
+	})
+	
+	//7.音乐切换
+	//7.1 音乐列表显示
+	console.log(musicData);
+	musicData.forEach(function(item,idx){
+		var li = $(`<li>${item.song}--${item.singer}</li>`);
+		$("#musicList").append(li);
+	});
+	//7.2单击切换音乐列表，切换歌曲
+	//声明一个全局变量
+	var musicIdx = 0;
+	$("#musicList li").click(function(){
+		musicIdx = $(this).index()
+		switchMusic();
+		})
+	switchMusic();
+	function switchMusic(){	
+		$("#musicList li").removeClass("bgcolor");
+		$("#musicList li").eq(musicIdx).addClass("bgcolor");
+		myaudio.src = musicData[musicIdx].url;
+		$("#play i").attr("class", "icon iconfont icon-poweroff-circle-fill");
+		myaudio.play();
+		$("#smallcircle img").attr("src",musicData[musicIdx].cover);
+		addHistoryList();	
+		showLyric();
+		
+		//$("")   
+	}
+	//单击显示列表
+	$("#musiclistdiv").hide();
+	var show = 1;
+	$("#listlogo i").click(function(){
+		if(show == 1){
+		//$("#musiclistdiv").css("display","inline-block");
+		$("#musiclistdiv").show(500);
+		show = 0;
+		}else{
+			//$("#musiclistdiv").css("display","none");
+			$("#musiclistdiv").hide(500);
+			show = 1;
+		}
+	})
+	//7.3上一首
+	$("#lastsong").click(function(){
+	//modechange(modeIdx);
+		musicIdx--;
+		if(musicIdx == -1){
+			musicIdx = musicData.length - 1;
+		}
+		//modechange(modeIdx);
+		switchMusic();
+	})
+	//7.4下一首
+	$("#nextsong").click(function(){
+		modechange(modeIdx);
+		/*if(musicIdx == musicData.length ){
+			musicIdx = 0;
+		}*/
+		//musicIdx = musicIdx % musicData.length;
+		//modechange(modeIdx);
+		//switchMusic();
+	})
+	//8.切换播放模式
+	var modeIdx = 0;
+	var moodelist = $("#playMode i");
+	console.log(moodelist.length);
+	moodelist.eq(modeIdx).css("display","block");
+	$("#playMode i").click(function(){
+		moodelist.eq(modeIdx).css("display","none");
+		modeIdx++;
+		modeIdx = modeIdx % moodelist.length;
+		moodelist.eq(modeIdx).css("display","block");
+		console.log(modeIdx);
+	})
+	//当前音乐播放完成时，自动播放“下一首”，由播放模式确定下一首是哪一首
+	myaudio.onended = function(){
+		modechange(modeIdx);
+	}
+	//播放模式更改函数
+	function modechange(modeIdx){
+		switch(modeIdx){
+		    case 0://顺序播放：播放到最后一首，停止播放
+		        musicIdx++;
+		        if(musicIdx < musicData.length){
+		            switchMusic();
+		        }
+		        else{
+		            musicIdx--;
+		            $("#playAndPause").text("播放");
+		        }
+		        break;
+		    case 1://随机播放
+				var tempmusicIdx = musicIdx
+				while(true){
+		        musicIdx = parseInt(Math.random()*musicData.length);
+				//保证每次随机数与当前idx不一致
+				if(musicIdx != tempmusicIdx) {break;}
+				}
+		        switchMusic();
+		        break;
+		    case 2://单曲循环
+		        switchMusic();
+		        break;
+		    case 3://全部循环：播放到最后一首，回到第一首继续播放
+		        musicIdx = (musicIdx+1) % musicData.length;//如果到最后一首则回到第一首
+		        switchMusic();
+		        break;
+		}
+	}
+	//9.增加历史纪录
+	$("#historylistdiv").hide();
+	$("#historylists i").click(function(){
+		if(show == 1){
+		//$("#historylistdiv").css("display","inline-block");
+		$("#historylistdiv").show(500);
+		show = 0;
+		}else{
+			//$("#historylistdiv").css("display","none");
+			$("#historylistdiv").hide(500);
+			show = 1;
+		}
+	})
+	
+	function addHistoryList(){
+		var li = $("#musicList li").eq(musicIdx).clone();
+		console.log(musicIdx);
+		console.log(li);
+		li.removeClass("bgcolor");
+		console.log($("#historylist li:contains(li.text)").length);
+		//if($("#historylist li:contains(" + li.text() + ")").length == 0){
+			//console.log("没有重复");
+		if (($("#historylist li").filter(":contains(" + li.text() + ")")).length == 0) {
+			$("#historylist").append(li);
+		};
+		li.attr('idx',musicIdx);
+		var lilist = $("#historylist li");
+			$("#historylist li").click(function(){
+				musicIdx = $(this).attr("idx");
+				//myaudio.src = musicData[$(nli).attr("idx")].url; 
+				myaudio.src = musicData[musicIdx].url;
+				myaudio.play();
+				$("#smallcircle img").attr("src",musicData[musicIdx].cover);
+				showLyric();
+			})	
+	}
+	
+	//10.添加歌词
+	function showLyric(){
+		var lyricStr = musicData[musicIdx].lyric;
+		lrcs.forEach(function(item,idx){
+			if(item.song == lyricStr){
+				var lyricArr = item.lyric;
+				$("#lyricList").empty();
+				$("#lyric h2").text(musicData[musicIdx].song);
+				$("#albumname").text("专辑: " + musicData[musicIdx].album);
+				$("#singername").text("歌手: " + musicData[musicIdx].singer);
+				lyricArr.forEach(function(obj,i){
+					var li = $(`<li time=${obj.time}>${obj.lineLyric}</li>`)
+					$("#lyricList").append(li);
+				})
+			}
+		})
+	}
+	</script>
+</html>

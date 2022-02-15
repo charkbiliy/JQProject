@@ -1,0 +1,499 @@
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		#box{
+			width:1200px;
+			height:800px;
+			margin: 0 auto;
+		}
+		#topbox{
+			height:80px;
+			background-color: red;
+			position: relative;
+		}
+		
+		#skinbox{
+			position: absolute;
+			width:110px;
+			height:400px;
+			z-index: 1;
+			background-color: rgba(0,0,0,0.5);
+			left:800px;
+			top:60px;
+			display: none;
+		}
+		#skinbox li{
+			cursor:pointer;
+			list-style: none;
+			width:100px;
+			height:40px;
+			margin-left:5px;
+		}
+		#li0{background-color: #006400;}
+		#li1{background-color: #666666;}
+		#li2{background-color: #CCCCCC;}
+		#li3{background-color: #3B4547;}
+		#li4{background-color: #90EE90;}
+		#li5{background-color: hotpink;}
+		#li6{background-color: #FFFF00;}
+		#li7{background-color: #4169E1;}
+		#li8{background-color: indianred;}
+		#li9{background-color: seagreen;}
+		
+		/*#loginbox .logininfo{
+			width:150px;
+			height:80px;
+			float: left;
+			text-align: right;
+			margin-top: 50px;
+		}*/
+		#loginbox{
+			position: absolute;
+			width:400px;
+			height: 200px;
+			z-index: 1;
+			background-color: rgba(0,0,0,0.5);
+			left:475px;
+			top:200px;
+			display: none;
+			
+			
+		}
+		#loginbox .logininput span{
+			width:50px;
+			display: inline-block;
+			text-align:left;
+			margin-right: 10px;
+			
+		}
+		#loginbox .logininput li{
+			margin-bottom: 10px;
+		}
+		#loginbox .logininput li:last-child{
+			margin-left:60px;
+		}
+		#loginbox .logininput{
+			list-style: none;
+			margin-top: 50px;
+			width:310px;
+			height:80px;
+			float: left;
+			padding-left:90px;
+		}
+		#loginbox .loginbutton{
+			float: left;
+			width:200px;
+			height:170px;
+			margin-left: 150px;
+			padding-top:15px;
+		}
+		#loginbox .loginbutton input{
+			width:50px;
+			height:30px;
+		}
+		
+		
+		
+		
+		
+		#logo{
+			margin-top:20px;
+			width:200px;
+			height:50px;
+			background: url(../img/01.png) 0 -77px;
+			float: left;
+			
+		}
+		#sousuo{
+			margin-top:30px;
+			margin-left:80px;
+			width:180px;
+			height:20px;
+			float: left;
+		}
+		#sousuo input{
+			width:180px;
+			height:20px;
+			padding-left:10px;
+			border-radius: 10px;;
+			outline: none;
+			
+		}
+		#rightlogo{
+			float: right;
+			width:450px;
+			margin-right:200px;
+			margin-top:30px;
+		}
+		#rightlogo li{
+			float: left;
+			width:60px;
+			height: 30px;
+			list-style: none;
+			text-align: right;
+			margin-left: 60px;
+			
+			/*background-image:url(img/login.png);
+			background-repeat:no-repeat;
+			background-position:left;*/
+		}
+		#rightlogo li:first-child{
+			width:110px;
+		}
+		#rightlogo li:last-child{
+			cursor: pointer;
+			margin-left:0;
+		}
+		#rightlogo li .icon-denglu{
+			display: inline-block;
+			font-size: 20px;
+		}
+		#rightlogo img{
+			display: block;
+			width:25px;
+			height: 25px;
+			border-radius: 50%;
+			margin-left: 5px;
+			float: right;
+		}
+		#skin{
+			margin-left: 10px;
+			width:50px;
+			height:30px;
+			background-color: white;
+			overflow: hidden;
+			margin-top:-4px;
+		}
+		#skin div{
+			width:45px;
+			height:15px;
+			background-color: red;
+			margin-top: 8px;
+			margin-left:2px;
+			
+		}
+		#contentbox{
+			height:640px;
+			background-color: #CCCCCC;
+			position: relative;
+			
+		}
+		/*评论区*/
+		#allcomments{
+	
+		}
+		#Div0,#Div1,
+		#Div2,#Div3{
+			position: absolute;
+			height: 640px;
+			width: 1200px;
+			background-color: rgba(150,100,100,0.8);
+			display: none;
+		}
+		#allcomments .commentsarea{
+			width:1100px;
+			height:480px;
+			padding-top:15px;
+			background-color: white;
+			margin:0 auto;
+			overflow: auto;
+		}
+		#allcomments .commentswrite{
+			width:1100px;
+			height:140px;
+			margin:0 auto;
+		}
+		#allcomments .return{
+			font-size: 20px;
+			width:80px;
+			height:40px;
+			margin-top:10px;
+			margin-left: 100px;
+			line-height: 40px;
+			text-align: center;
+			border-radius: 20px;
+			background-color: #C91623;
+			
+		}
+		#allcomments h1{
+			margin-left:500px;
+			color: black;
+		}
+		#allcomments .commentswrite input:first-child{
+			margin-left: 200px;;
+			width:600px;
+			height:20px;
+		}
+		
+		#allcomments .return:hover{
+			background-color: #999999;
+			cursor:pointer;
+		}
+		#allcomments li{
+			height: 100px;
+			list-style: none;
+			border-bottom: 2px solid #666666;
+			
+		}
+		#allcomments .commentsarea li span{
+			margin-top: 0px;
+			display: inline-block;
+			height: 30px;
+			line-height: 30px;
+		}
+		#allcomments .commentsarea li img{
+			display: block;
+			width:50px;
+			height:50px;
+			margin-left: 10px;
+			margin-top:20px;
+			border-radius: 50%;
+			float: left;
+			margin-right: 20px;
+		}
+		#allcomments .commentsarea li div{
+			height: 70px;
+			width: 800px;;
+			float: left;
+		}
+		
+		#contentbox .cover{
+			width:50%;
+			height:540px;
+			padding-top:100px;
+			float: left;
+		}
+		#bigcircle{
+			width:300px;
+			height:300px;
+			border-radius:50%;
+			background-color: #333333;
+			margin-left:150px;
+			position: relative;
+		}
+		#smallcircle{
+			width:200px;
+			height:200px;
+			border-radius:50%;
+			background-color: white;
+			position: absolute;
+			left:50px;
+			top:50px;
+			animation: myrotate 10s linear infinite;
+		}
+		#smallcircle img{
+			width: 100%;
+			height: 100%;
+			border-radius:50%;
+		}
+		@keyframes myrotate{
+		    from{transform: rotate(0);}
+		    to{transform: rotate(360deg);}
+		}
+		#downitems{
+			margin-left: 250px;
+		}
+		#downitems li{
+			list-style: none;
+			float: left;
+			width:50px;
+			height:50px;
+			border-radius: 50%;	
+			margin-top: 50px;
+			margin-right:30px;
+		}
+		#downitems li i{
+			font-size: 30px;
+		}
+		
+		#lyric{
+			width:500px;
+			height:620px;
+			background-color: #CCCCCC;
+			float: left;
+			padding-left: 100px;
+			
+			padding-top:20px;
+		}
+		
+		#lyricDiv{
+			margin-top: 20px;
+			width:450px;
+			height:500px;
+			background-color: #CCCCCC;
+			overflow: auto;
+		}
+		#lyricList li{
+			text-align: center;
+		}
+		#lyric span{
+			text-align: center;
+			margin-top:20px;
+			display: inline-block;
+			margin-right: 100px;
+			font-weight: bold;
+			font-family: "黑体";
+			color:#3B4547;
+		}
+		#footbox{
+			height:80px;
+			width:1050px;
+			background-color: red;
+			padding-left: 150px;
+			position: relative;
+		}
+		#playlogo>li{
+			float:left;
+			list-style: none;
+		}
+		#playlogo .icon-shangyishou,
+		#playlogo .icon-bofang,
+		#playlogo .icon-poweroff-circle-fill,
+		#playlogo .icon-xiayishou{
+			display: inline-block ;
+			font-size: 50px;
+			margin-right:40px;
+			margin-top:15px;
+		}
+		
+		/*滑动条样式设置*/
+		/*清除滑动条字自带样式*/
+		#audioInput{
+			    -webkit-appearance: none;
+				height:10px;
+			    width: 300px;
+			    border-radius: 10px;
+				/*background: linear-gradient(to right,rgb(238,222,217),rgb(200,66,67));*/
+				/*background:-webkit-linear-gradient(#059CFA,#059CFA) no-repeat;*/
+				background: -webkit-linear-gradient(#333333, #333333) no-repeat, #CCCCCC;
+				background-size: 0% 100%; /* 因为周期默认value=0.50正好占50% */
+		}
+		#volInput{
+			-webkit-appearance: none;
+			height:10px;
+			width: 100px;
+			border-radius: 10px;
+			/*background: linear-gradient(to right,rgb(238,222,217),rgb(200,66,67));*/
+			background: -webkit-linear-gradient(#333333, #333333) no-repeat, #CCCCCC;
+			background-size: 100% 100%; /* 因为周期默认value=0.50正好占50% */
+		}
+		/*input[type=range]::-ms-fill-lower {
+		    /*进度条已填充的部分
+		    height: 10px;
+		    border-radius: 10px;
+		    background:-webkit-linear-gradient(#059CFA,#059CFA) no-repeat;
+		}
+		
+		input[type=range]::-ms-fill-upper {
+		    /*进度条未填充的部分
+		    height: 10px;
+		    border-radius: 10px;
+		    background: #FFFFFF;
+		}   */
+		/*input[type=range]::-ms-track {
+		       height: 15px;
+		       border-radius: 10px; 将轨道设为圆角的
+		       box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果
+			   border-color: transparent;
+			   color: transparent;
+		}*/
+		/*原始的控件获取到焦点时，会显示包裹整个控件的边框，所以还需要把边框取消。*/
+		input[type=range]:focus {
+		    outline: none;
+		}
+		
+		
+		/*设置轨道样式*/
+		/*input[type=range]::-webkit-slider-runnable-track {
+		    height: 10px;
+		    border-radius: 10px; 将轨道设为圆角的
+		     轨道内置阴影效果
+			 color:transparent;
+		}
+		/*设置滑块样式*/
+		input[type=range]::-webkit-slider-thumb{
+		       -webkit-appearance: none;
+		       height: 15px;
+		       width: 15px;
+		       margin-top: -2px; /*使滑块超出轨道部分的偏移量相等*/
+		       background: #ffffff; 
+		       border-radius: 50%; /*外观设置为圆形*/
+		       border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+		       box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+		}
+	
+		/*#volume input[type=range]{
+			    -webkit-appearance: none;
+			    width:100px;
+			    border-radius: 10px;
+		}*/
+		/*#listlogo{
+			position: absolute;
+		}*/
+		#musiclistdiv{
+			padding-top: 10px;
+			padding-left:5px;
+			width:195px;
+			height:190px;
+			background-color: rgba(0,0,0,0.5);
+			position: absolute;
+			top:55px;
+			right:220px;
+			color:#C91623;
+			overflow: auto;
+			border-radius: 10px;
+		}
+		#historylistdiv{
+			padding-top: 10px;
+			padding-left:5px;
+			width:195px;
+			height:190px;
+			left:1090px;
+			top:55px;
+			background-color: rgba(0,0,0,0.5);
+			position: absolute;
+			color:#C91623;
+			overflow: auto;
+			border-radius: 10px;
+		}
+		
+		#musiclistdiv h3{
+			text-align: center;
+			border-bottom: 2px solid #CCCCCC;
+			margin-bottom:5px;
+		}
+		audio{
+			top:500px;
+			position: relative
+		}
+		.bgcolor{
+			background-color: #999999;
+		}
+		#playMode i{
+			width: 30px;
+			height: 30px;
+			font-size: 25px;
+			display: none;
+			
+		}
+		#lyricList li{
+			margin-top:10px;
+			list-style:none;
+		}
+		.licolor{
+                color: red;
+         }
+		 
+		#allrange,#volume{
+			margin-top:30px;
+			margin-right:20px;
+		}
+		#listlogo,#playMode,#historylists{
+			margin-top: 30px;
+			margin-right:20px;
+		}
+		#historylists i,#listlogo i{
+			font-size: 25px;
+		}

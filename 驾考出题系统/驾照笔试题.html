@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+	    *{
+	        padding: 0;
+	        margin: 0;
+	    }
+	    #box{
+	        width: 800px;
+	        height: 950px;
+	        border: 5px solid darkgreen;
+	        margin: 50px auto;
+	    }
+	    #titleBox{
+	        width: 100%;
+	        height: 80px;
+	        border-bottom: 5px solid darkgreen;
+	    }
+	    #leftDiv,#rightDiv{
+	        width: 180px;
+	        height: 80px;
+	        line-height: 80px;
+	        text-align: center;
+	        font-size: 30px;
+	    }
+	    #titleBox div{
+	        float: left;
+	    }
+	    #leftDiv{
+	        cursor: pointer;
+	        color: #333333;
+			background-color: #FF0000;
+			width:150px;
+			height:60px;
+			margin-top: 10px;
+			line-height: 60px;
+			border-radius: 40px;
+	    }
+	    #rightDiv{
+	        color: red;
+	        display: none;
+	    }
+	    #titleDiv{
+	        width: 440px;
+	        height: 80px;
+	        text-align: center;
+	    }
+	    #questionBox{
+	        width: 100%;
+	        height: 800px;
+	        border-bottom: 5px solid darkgreen;
+			overflow:auto;
+	    }
+	    #submitBox{
+	        width: 100%;
+	        height: 60px;
+	        line-height: 60px;
+	        text-align: center;
+	    }
+	    #submitBox button{
+	        width: 90%;
+	        height: 40px;
+	        background-color: darkgreen;
+	        border: none;
+	        border-radius: 20px;
+	        font-size: 25px;
+	        cursor: pointer;
+	    }
+	    #questionBox>ul{
+	        list-style: none;
+	    }
+	    #questionBox ul>li{
+	        font-size: 20px;
+	        text-align: left;
+	        margin-top: 30px;
+	    }
+	    #questionBox ul li input{
+	        width: 40px;
+	        font-size: 30px;
+	    }
+	    #questionBox p{
+	        color: red;
+	    }
+		 #questionBox .ullist span{
+			 color:red;
+			 font-size: 15px;
+		 }
+	</style>
+	<body>
+	    <div id="box">
+	        <div id="titleBox">
+	            <div id="leftDiv">重新出题</div>
+	            <div id="titleDiv">
+	                <h1>自动出题与评分考试系统</h1>
+	                <h3>(驾照考试科目一)</h3>
+	            </div>
+	            <div id="rightDiv">得分：XXX分</div>
+	        </div>
+			
+	        <div id="questionBox">
+	            <ul>
+	
+	               <!--  <li>21+45=<input type="text">X</li>
+	                <li>21+45=<input type="text">X</li>
+	                <li>21+45=<input type="text">X</li>
+	                <li>21+45=<input type="text">X</li>
+	                <li>21+45=<input type="text">X</li>
+	                <li>21+45=<input type="text"></li>
+	                <li>21+45=<input type="text"></li>
+	                <li>21+45=<input type="text"></li>
+	                <li>21+45=<input type="text"></li> 
+						-->
+	            </ul>
+	        </div>
+	        <div id="submitBox">
+	            <button type="button">提交</button>
+	        </div>
+	    </div>
+	</body>
+	<script src="99-题库.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jquery3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		//console.log(questions);
+		/*var questions = [{
+		        "id": 1,
+		        "question": "驾驶人违反交通运输管理法规发生重大事故后，因逃逸致人死亡的，处多少年有期徒刑？",
+		        "answer": "4",
+		        "item1": "2年以下",
+		        "item2": "3年以下",
+		        "item3": "7年以下",
+		        "item4": "7年以上",
+		        "expalins": "要看清题目致人死亡的是不是因为逃逸造成的，如果是那就是7年以上。",
+		        "url": ""
+		    },
+		    {
+		        "id": 2,
+		        "question": "机动车仪表板上（如图所示）亮表示什么？",
+		        "answer": "1",
+		        "item1": "防抱死制动系统故障",
+		        "item2": "驻车制动器处于解除状态",
+		        "item3": "行车制动系统故障",
+		        "item4": "安全气囊处于故障状态",
+		        "expalins": "ABS就是防抱死制动系统",
+		        "url": "http://apistore.data.eolinker.com/driver_question/c1c2subject1_1122.jpeg"
+		    }];*/
+		var ul = $("#questionBox ul");
+		var quesArr = [];
+		var count = 1;
+		while(quesArr.length < 10){
+			var idx = parseInt(Math.random()*questions.length+1);
+			if(quesArr.indexOf(idx) != -1){
+				continue;
+			}
+			quesArr.push(idx);
+		  // for(var idx=0;idx<quesArr.length;idx++){
+			var obj = questions[idx-1];
+			var li = $("<li></li>");
+			li.html("<ul class='ullist'>" + count +"." + obj.question +"<span></span><br>"+"<img src=" + obj.url+">"+"</br>"
+			+"<li><label><input type='radio' name="+idx + " value='1'/>"+obj.item1 +"</label></li>"
+			+"<li><label><input type='radio' name="+idx + " value='2'/>"+obj.item2 + "</label></li>"
+			+"<li><label><input type='radio' name="+idx + " value='3'/>"+obj.item3 + "</label></li>"
+			+"<li><label><input type='radio' name="+idx + " value='4'/>"+obj.item4 + "</label></li>"
+			+"<p></p>"+"</ul>");
+			//保证每一个单选题的name不同，不然用同一个name全部题只能选中一个
+			//ullist = $(".ullist").find("input").attr("name",idx);
+			
+			ul.append(li);
+			count++;
+			};
+			console.log(quesArr);
+			//quesArr = [4,5,6,7,11,45,22,14]
+			$("#submitBox button").click(function(){
+				var score = 0;
+				var ullist = $(".ullist");
+				//for(var i = 0;i<ullist.length;i++){
+				//	ullist[i].li
+				//}
+				$.each(ullist,function(idx,ull){
+				//	ullist.forEach(function(ull,idx){
+					//console.log(ull);
+					//$(ull).find("input").attr("name","idx");
+					var lival=$(ull).find(":checked").val();
+					//console.log("ide的值");
+					//console.log(idx);     
+					var ans = questions[quesArr[idx]-1].answer;
+					 console.log(ans);
+					if(lival == ans){
+						score+=10;
+						//console.log("正确");
+					}else{
+						var explains = questions[quesArr[idx]-1].expalins;
+						//console.log(explains);
+						$(ull).find("span").text(" X");
+						$(ull).find("p").text("正确答案: "+ans +" 解析: "+explains);
+						//console.log("错误")
+						};
+					//console.log(lilist);
+					
+				});
+				
+				$("#rightDiv").text("得分:"+score);
+				$("#rightDiv").show();
+				
+			})
+			//重新出题
+			$("#leftDiv").click(function(){
+				window.location.reload();
+			})
+	</script>
+</html>

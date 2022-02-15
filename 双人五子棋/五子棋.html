@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>五子棋</title>
+		<style>
+			#mycanvas{
+				box-shadow: 5px 5px 10px black,-5px -5px 10px black;
+				margin:50px auto;
+				display:50px auto;
+				display: block;
+				background-color: #CCCCCC;
+			}
+			#replay{
+				width:100px;
+				height:50px;
+				background-color: #E2231A;
+				line-height: 50px;
+				text-align: center;
+				border-radius: 20px;
+				cursor: pointer;
+				font-weight: bold;
+				float: left;
+				margin-left: 850px;
+				margin-right: 50px;
+			}
+			#regret{
+				width:100px;
+				height:50px;
+				background-color: #E2231A;
+				line-height: 50px;
+				text-align: center;
+				border-radius: 20px;
+				cursor: pointer;
+				float: left;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="mycanvas" width="640" height="640"></canvas>
+		<div id="replay">重新开始</div>
+		<div id="regret">悔棋</div>
+	</body>
+	<script>
+		var mycanvas = document.getElementById("mycanvas");
+		var ctx = mycanvas.getContext("2d");
+		
+		
+	   //1.绘制棋盘
+	   for(var i = 1;i <= 15;i++){
+		   ctx.moveTo(40,40*i);
+		   ctx.lineTo(600,40*i);
+		   
+		   ctx.moveTo(40*i,40);
+		   ctx.lineTo(40*i,600);
+	   }
+		ctx.stroke();
+		//2.棋盘落子
+		var isblack = true;
+		mycanvas.onclick = function(ev){
+			regretxy = [];
+			regretIndex = [];
+			ev = ev || event;
+			var x = ev.offsetX;
+			var y = ev.offsetY;
+			var x0 = Math.round(x/40)*40;
+			var y0 = Math.round(y/40)*40;
+			if(x0 == 0){
+				x0 = 40;
+			}
+			if(x0 > 600){
+				x0 = 600;
+			}
+			if(y0 == 0){
+				y0 = 40;
+			}
+			if(y0 > 600){
+				y0 = 600;
+			}
+			//落子位置对一个二维数组的位置
+			//(40,40)==>][0][0]
+			var row = x0/40-1;
+			var col = y0/40-1;
+			regretxy.push(x0);
+			regretxy.push(y0);
+			
+			regretIndex.push(row);
+			regretIndex.push(col);
+			console.log(regretxy);
+			//重新开始绘制（路径重新开始）
+			ctx.beginPath();
+			//判断下的是黑棋还是白棋
+			if(chessArr[row][col] != 0){
+				alert("不能重复落棋");
+				//退出函数
+				return;
+			}
+			if(isblack){
+				ctx.fillStyle = "black";
+				//2表示黑子,黑棋位置存到数组内
+				chessArr[row][col] = 2;
+				
+			}else{
+				ctx.fillStyle = "white";
+				//1表示白子
+				chessArr[row][col] = 1;
+			}
+			//18半径，从0都开始到2PI
+			ctx.arc(x0,y0,18,0,2*Math.PI);
+			ctx.fill();
+			//棋子绘制需要事件，判定胜负需要延迟几毫秒，所以设定一个定时器
+			setTimeout(function(){
+					if(gameover(row,col)){
+						alert(isblack?"黑方胜":"白方胜");
+						mycanvas.onclick = null;
+						return;
+					}
+					isblack = !isblack;
+			},50)
+			
+			
+		}
+			//创建二位数组，
+			var chessArr = new Array(15);
+			for(var i = 0;i < 15;i++){
+				//fill().使用制定的元素填充数组，其实就是用默认内容初始化数组。
+				//函数有三个参数。
+				/*arr.fill(value, start, end)
+				value：填充值。
+				start：填充起始位置，可以省略。
+				end：填充结束位置，可以省略，实际结束位置是end-1*/
+				chessArr[i] = new Array(15).fill(0)
+			};
+			//console.log(chessArr[0][1]);
+			
+			function gameover(row,col){
+				if(rowWin(row,col) || colWin(row,col)||XYwin(row,col)||YXwin(row,col)){
+					return true;
+				}
+				return false;
+			}
+			//判断胜负（横竖，正斜，反斜）
+			//1.判断水平方向的胜负
+			function rowWin(row,col){
+				var n = 1;
+				//水平左边是否有连续的相同颜色棋子
+				for(var i = col-1;i >= 0; i-- ){
+					if(chessArr[row][col] == chessArr[row][i]){
+						n++;
+					}else{
+						//一旦碰到不连续的数值就结束循环；
+						break;
+					}
+				}
+				//水平向右
+				for(var i = col + 1;i < 15; i++ ){
+						if(chessArr[row][col] == chessArr[row][i]){
+							n++;
+						}else{
+							//一旦碰到不连续的数值就结束循环；
+							break;
+					}
+				}
+				console.log(n);
+				if(n == 5){
+					return true;
+				}else{
+					return false;
+				}
+			}
+			//判断竖直方向
+			function colWin(row,col){
+				var n = 1;
+				//当前位置向上
+				for(var i = row + 1;i < 15; i-- ){
+					if(chessArr[row][col] == chessArr[i][col]){
+							n++;
+						}else{
+							//一旦碰到不连续的数值就结束循环；
+							break;
+					}
+				}
+				//当前位置向下
+				for(var i = row - 1;i >= 0; i++ ){
+						if(chessArr[row][col] == chessArr[i][col]){
+							n++;
+						}else{
+								//一旦碰到不连续的数值就结束循环；
+							break;
+						}
+					}
+				if(n == 5){
+					return true;
+				}
+				return false;
+			};
+			
+			//判断正斜方向
+			function XYwin(row,col){
+				var n = 1;
+				for(var i = row - 1,j = col +1;i >= 0&&j<15; i--,j++ ){
+					if(chessArr[row][col] == chessArr[i][j]){
+							n++;
+						}else{
+							//一旦碰到不连续的数值就结束循环；
+							break;
+					}
+				}
+				//当前位置向下
+				for(var i = row + 1,j = col - 1;i < 15&& j >= 0; i++,j-- ){
+						if(chessArr[row][col] == chessArr[i][j]){
+							n++;
+						}else{
+								//一旦碰到不连续的数值就结束循环；
+							break;
+						}
+					}
+				if(n == 5){
+					return true;
+				}
+				return false;
+			};
+			//判断反斜方向
+			function YXwin(row,col){
+				//左上
+				var n = 1;
+				for(var i = row - 1,j = col - 1;i >= 0&&j >= 0; i--,j--){
+					if(chessArr[row][col] == chessArr[i][j]){
+							n++;
+						}else{
+							//一旦碰到不连续的数值就结束循环；
+							break;
+					}
+				}
+				//右下
+				for(var i = row + 1,j = col + 1;i < 15&& j < 15; i++,j++ ){
+						if(chessArr[row][col] == chessArr[i][j]){
+							n++;
+						}else{
+								//一旦碰到不连续的数值就结束循环；
+							break;
+						}
+					}
+				if(n == 5){
+					return true;
+				}
+				return false;
+			};
+	
+			var regretxy = [];
+			var regretIndex =[];
+			var replay = document.getElementById("replay");
+			replay.onclick = function(){
+			  	window.location.reload();
+			}
+			var regret = document.getElementById("regret");
+			
+			regret.onclick = function(){
+				//console.log()
+				isblack = !isblack;
+				chessArr[regretIndex[0]][regretIndex[1]] = 0;
+				ctx.clearRect(regretxy[0]-18,regretxy[1]-18,36,36);
+				ctx.beginPath();
+				if(regretxy[0] == 40 && regretxy[1] == 40){
+					//左上角
+					ctx.moveTo(regretxy[0],regretxy[1]);
+					ctx.lineTo(regretxy[0],regretxy[1]+18);
+					
+					ctx.moveTo(regretxy[0],regretxy[1]);
+					ctx.lineTo(regretxy[0]+18,regretxy[1]);
+					ctx.stroke();
+				}else if(regretxy[0] == 40 && regretxy[1] > 40 && regretxy[1] < 600 ){
+					//最左边
+					ctx.moveTo(regretxy[0],regretxy[1]-18);
+					ctx.lineTo(regretxy[0],regretxy[1]+18);
+					
+					ctx.moveTo(regretxy[0],regretxy[1]);
+					ctx.lineTo(regretxy[0]+18,regretxy[1]);
+					ctx.stroke();
+				}else if(regretxy[0] == 40 && regretxy[1] ==600){
+					//左下角
+					ctx.moveTo(regretxy[0],regretxy[1]-18);
+					ctx.lineTo(regretxy[0],regretxy[1]);
+					
+					ctx.moveTo(regretxy[0],regretxy[1]);
+					ctx.lineTo(regretxy[0]+18,regretxy[1]);
+					ctx.stroke();
+				}else if(regretxy[0] > 40 && regretxy[0]< 600 && regretxy[1] == 40){
+					//最顶上
+					ctx.moveTo(regretxy[0],regretxy[1]);
+					ctx.lineTo(regretxy[0],regretxy[1]+18);
+					
+					ctx.moveTo(regretxy[0]-18,regretxy[1]);
+					ctx.lineTo(regretxy[0]+18,regretxy[1]);
+					ctx.stroke();
+				}else if(regretxy[0] == 600 && regretxy[1] == 40){
+					//右上角
+					ctx.moveTo(regretxy[0],regretxy[1]);
+					ctx.lineTo(regretxy[0],regretxy[1]+18);
+					
+					ctx.moveTo(regretxy[0]-18,regretxy[1]);
+					ctx.lineTo(regretxy[0],regretxy[1]);
+					ctx.stroke();
+				}else if(regretxy[0] == 600 && regretxy[1] > 40 && regretxy[1] < 600){
+					//最右边
+					ctx.moveTo(regretxy[0],regretxy[1]-18);
+					ctx.lineTo(regretxy[0],regretxy[1]+18);
+					
+					ctx.moveTo(regretxy[0]-18,regretxy[1]);
+					ctx.lineTo(regretxy[0],regretxy[1]);
+					ctx.stroke();
+				}else if(regretxy[0] == 600 && regretxy[1] == 600){
+					//右下角
+					ctx.moveTo(regretxy[0],regretxy[1]-18);
+					ctx.lineTo(regretxy[0],regretxy[1]);
+					
+					ctx.moveTo(regretxy[0]-18,regretxy[1]);
+					ctx.lineTo(regretxy[0],regretxy[1]);
+					ctx.stroke();
+				}else if(regretxy[0] > 40 && regretxy[0] < 600 && regretxy[1] == 600){
+					//最下边
+					ctx.moveTo(regretxy[0],regretxy[1]-18);
+					ctx.lineTo(regretxy[0],regretxy[1]);
+					
+					ctx.moveTo(regretxy[0]-18,regretxy[1]);
+					ctx.lineTo(regretxy[0]+18,regretxy[1]);
+					ctx.stroke();
+				}else{
+					//中间
+					ctx.moveTo(regretxy[0],regretxy[1]-18);
+					ctx.lineTo(regretxy[0],regretxy[1]+18);
+					
+					ctx.moveTo(regretxy[0]-18,regretxy[1]);
+					ctx.lineTo(regretxy[0]+18,regretxy[1]);
+					ctx.stroke();
+				}
+			};
+	</script>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Tapbird</title>
+	</head>
+	<style>
+		#mycanvas {
+			border: 1px solid blue;
+			display: block;
+			margin: 100px auto;
+		}
+	</style>
+	<body>
+		<canvas id="mycanvas" width="288" height="512"></canvas>
+		
+	</body>
+	<script type="text/javascript">
+		var mycan = document.getElementById("mycanvas");
+		var historyscore = localStorage.getItem("")
+		var ctx = mycan.getContext("2d");
+		var imgPathArr = [
+			{name:"bg_day",path:"images/bg_day.png"},
+			 {name:"bird0_0",path:"images/bird0_0.png"},
+			 {name:"bird0_1",path:"images/bird0_1.png"},
+			 {name:"bird0_2",path:"images/bird0_2.png"},
+			 {name:"button_play",path:"images/button_play.png"},
+			{name:"font_048",path:"images/font_048.png"},
+			{name:"font_049",path:"images/font_049.png"},
+			{name:"font_050",path:"images/font_050.png"},
+			{name:"font_051",path:"images/font_051.png"},
+			{name:"font_052",path:"images/font_052.png"},
+			{name:"font_053",path:"images/font_053.png"},
+			{name:"font_054",path:"images/font_054.png"},
+			{name:"font_055",path:"images/font_055.png"},
+			{name:"font_056",path:"images/font_056.png"},
+			{name:"font_057",path:"images/font_057.png"},
+			{name:"land",path:"images/land.png"},
+			{name:"pipe_down",path:"images/pipe_down.png"},
+			{name:"pipe_up",path:"images/pipe_up.png"},
+			{name:"text_game_over",path:"images/text_game_over.png"},
+			{name:"title",path:"images/title.png"},
+			{name:"tutorial",path:"images/tutorial.png"}
+		];
+		
+		//关联数组
+		//{"font_056":imgEle，XX：xx}
+		var imgEleObj = {};
+		var count = imgPathArr.length;
+		
+		for( var i = 0;i < imgPathArr.length;i++){
+			var name = imgPathArr[i].name;
+			var path = imgPathArr[i].path;
+			//创建一个图片对象
+			var imgEle = new Image();
+			imgEle.src = path;
+			imgEleObj[name] = imgEle;
+			imgEle.onload = function(){
+				count--;
+				if(count == 0){
+					gameStart();
+				}
+			}
+		}
+		
+		function gameStart(){
+			//开始游戏 第一场景
+			var scene = 1; //场景变量
+			var titleY = 0; //标题Y坐标
+			var alpha = 1; //透明度
+			var alphaStep = -0.1 //透明度的变化量
+			//本地存储值历史最高分
+			localStorage.setItem("historyEasyscore","0");
+			localStorage.setItem("historyHardscore","0");
+			var historyEasyscore = localStorage.getItem("historyEasyscore");
+			var historyHardscore = localStorage.getItem("historyHardscore");
+			var gameoverY = 0;
+			var replayY = 512;
+			var level;//选择的等级变量
+			var topScore; //最后显示的分数变量
+			//场景2、5初始变量
+			var bgX;
+			var pipe_down_high;
+			//管道最短40，两个管道之间距离是140,
+			var pipe_down_high_min = 40;
+			//上下高400，最短40，最长的是400减去最短的和中间间隔140
+			var pipe_down_high_max = 400 - 40 - 140;
+			
+			var pipe_up_high;
+			var piprX;
+			var score;
+			var timer1;
+			var timer2;
+			timer1 = setInterval(function(){
+				if(scene == 1){
+					ctx.drawImage(imgEleObj.bg_day,0,0);
+					
+					//title下落动画
+					titleY += 10;
+					if(titleY >= 130){
+						titleY = 130;
+					}
+					ctx.drawImage(imgEleObj.title,55,titleY);
+					ctx.save(); //保存画布中所有设置(包括背景色、前景色、透明度...),不是画面。
+					
+					//闪烁小年图标设置透明度
+					alpha += alphaStep;
+					if(alpha < 0.3){
+						alphaStep = 0.05;
+					}
+					if(alpha > 1){
+						alphaStep = -0.05;
+					}
+					//透明度
+					ctx.globalAlpha = alpha;
+					
+					ctx.drawImage(imgEleObj.tutorial,87,210);
+					//恢复保存设置，不然title也跟着变化透明度
+					ctx.restore();
+					
+					//开始按钮(在原图中00位置开始截取长116，宽70的部分放在画布的x86,y350处，放截取的图的大小)
+					ctx.drawImage(imgEleObj.button_play,0,0,116,70,86,350,116,70);
+					
+					mycan.onclick = function(ev){
+						ev = ev || event;
+						var x = ev.offsetX;
+						var y = ev.offsetY;
+						
+						var x1 = 86,y1 = 350;
+						var x2 = 86 + 116,y2 = 350 + 70;
+						//点击到开始图标区域内时转换场景
+						if(x >= x1 && x <= x2 && y >= y1 && y2 <=y2){
+							scene = 4;
+							//初始化场景4的变量；
+							bgX = 0;
+							/*
+							pipe_down_high = parseInt(Math.random()*(pipe_down_high_max - pipe_down_high_min + 1) + pipe_down_high_min)
+							pipe_up_high = 400 - pipe_down_high - 140;
+							pipeX = 300;
+							
+							//初始化分数
+							score = 0;
+							
+							//初始化小鸟参数
+							birdY = 100;
+							birdYstep = 0;
+							
+							isDown = true;
+							
+							birdY = 100; //小鸟Y坐标
+							birdYstep = 0; //小鸟y坐标变化量
+							
+							birdAlpha = 0;//旋转角度
+							
+							isAdd = true;*/
+							
+						}
+						
+						
+					}
+				
+				}
+				else if(scene == 2){
+					//清楚点击事件
+					mycan.onclick = "";
+					//清楚画布上的内容
+					ctx.clearRect(0,0,288,512);
+					bgX -= 3;
+					//若背景刚好超出左边框
+					if(bgX <= -288){
+						bgX = 0;
+					}
+					
+					//天空向左移动
+					ctx.drawImage(imgEleObj.bg_day,bgX,0);
+					//第一个图向左边移动，右边会有白色空缺，需要第二个图来向左移动弥补空缺
+					ctx.drawImage(imgEleObj.bg_day,288+bgX,0);
+					
+					//同理地面
+					ctx.drawImage(imgEleObj.land,bgX,400);
+					ctx.drawImage(imgEleObj.land,288+bgX,400);
+					
+					
+					pipeX -= 3;
+					//管道宽60一旦全部移出画布，就重置
+					if(pipeX <= -60){
+						pipe_down_high = parseInt(Math.random()*(pipe_down_high_max - pipe_down_high_min + 1) + pipe_down_high_min);
+						pipe_up_high = 400 - 140 - pipe_down_high;
+						pipeX = 300;
+						isAdd = true; //新柱子出现时，重置jiafen参数
+					}
+					//管道52*320
+					//x向下开口的管道
+					ctx.drawImage(imgEleObj.pipe_down,0,320 - pipe_down_high,52,pipe_down_high,pipeX,0,52,pipe_down_high);
+					//向上开口的管道
+					ctx.drawImage(imgEleObj.pipe_up,0,0,52,pipe_up_high,pipeX,400-pipe_up_high,52,pipe_up_high);
+					
+					ctx.font = "25px 黑体";
+					ctx.fillStyle = "yellow";
+					ctx.fillText("Level Easy",15,25);
+					
+					//显示分数
+					var scoreStr = score.toString();
+					for(var i = 0 ;i < scoreStr.length; i++){
+						var  name =	"font_0" + (parseInt(scoreStr[i])+48);
+						ctx.drawImage(imgEleObj[name],i*24+100,100);
+					}
+					
+					if(isDown){
+						//小鸟下落计算
+						birdYstep++;
+						birdY += birdYstep/6;
+						birdAlpha = birdYstep/36;//旋转角度变化小一些
+					}else{
+						//上升
+						birdYstep++;
+						//上升高度 
+						birdY -= (25 - birdYstep)/6;
+						birdAlpha = -(25 - birdYstep)/18;
+						if(birdYstep >= 25){
+							birdYstep = 0;
+							isDown = true;
+							//console.log("像落了");
+						}
+					}
+					
+					
+				
+					ctx.save();//旋转前保存画面，不然整个画面都在转
+					//小鸟长宽48
+					//translate改变基准点默认是画布的（0，0）
+					//旋转是以基准点进行旋转的,现在要以小鸟为基准点进行旋转
+					//改变到小鸟的基准点进行旋转
+					//小鸟是垂直下落，x基准点不变，y在变化所以每次下落一点基准点的y要加上24
+					ctx.translate(100+24,birdY+24);
+					ctx.rotate(birdAlpha);
+					//中心点现在是小鸟中心，所以放图的时候，注意坐标-24，-24
+					ctx.drawImage(imgEleObj.bird0_0,-24,-24);
+					ctx.restore();//旋转完恢复背景图;
+				
+					mycan.onclick = function(){
+						isDown = false;
+						birdYstep = 0;
+					}
+				
+					//小鸟死亡方式
+					//1.撞到最顶,小鸟原图方框到画布最顶，但是方框里的小鸟离方框最顶还有10px距离
+						if(birdY <= -6){
+							scene = 3;
+					
+							}
+						if(birdY >= 400 - 48 + 10){
+							scene = 3;
+							}
+					//3.撞到管道
+						if(pipeX <= 100 + 48 - 11 && pipeX >= 100 - 52){
+						if(birdY + 10 <= pipe_down_high){
+							scene = 3;
+						}
+						if(birdY + 48 - 10 >= 400 - pipe_up_high){
+							scene = 3;
+						}
+						} 
+				
+						if(pipeX + 52 < 100 && isAdd){
+							score++;
+							isAdd = false;
+							console.log(score);
+						}
+				
+					}
+				else if(scene == 3){
+					//场景3
+					//重置场景
+					ctx.clearRect(0,0,288,512);
+					
+					//gameover的场景变量应该和scene2一样，不能重置
+					
+					ctx.drawImage(imgEleObj.bg_day,bgX,0);
+					ctx.drawImage(imgEleObj.bg_day, 288+bgX, 0);
+					//地面
+					ctx.drawImage(imgEleObj.land, bgX, 400);//336*112
+					ctx.drawImage(imgEleObj.land, 288+bgX, 400);
+					
+					//管道52*320
+					//x向下开口的管道
+					ctx.drawImage(imgEleObj.pipe_down,0,320 - pipe_down_high,52,pipe_down_high,pipeX,0,52,pipe_down_high);
+					//向上开口的管道
+					ctx.drawImage(imgEleObj.pipe_up,0,0,52,pipe_up_high,pipeX,400-pipe_up_high,52,pipe_up_high);
+					
+					
+					//小鸟落地,一碰到输点就会切换到scene3，那么落地画面应写在scene3中
+					birdY += 5;
+					//400是地面上总高，48小鸟框，10小鸟距离上边框
+					if(birdY >= 400- 48 + 10){
+						birdY = 400 - 48 + 10 //
+					}
+					
+					ctx.drawImage(imgEleObj.bird0_0,100,birdY);
+					
+					gameoverY += 15;
+					if(gameoverY >= 100){
+						gameoverY = 100;
+					}
+					ctx.drawImage(imgEleObj.text_game_over,42,gameoverY);
+					//ctx.drawImage(imgEleObj.text_game_over,42,100);
+					
+					//var historyscore = localStorage.getItem("")
+					//计算本地存储的历史最高分
+					//historyEasyscore
+					//historyHardscore
+					//var topScore;
+					historyEasyscore = localStorage.getItem("historyEasyscore");
+					historyHardscore = localStorage.getItem("historyHardscore");
+					topScore = 0;
+					if(level == 1){
+						if( score > historyEasyscore){ 
+							console.log("1")
+							localStorage.setItem("historyEasyscore",score);
+							topScore =  localStorage.getItem("historyEasyscore");
+							console.log(topScore);
+							}else{
+								topScore = localStorage.getItem("historyEasyscore");
+							}
+						
+					}else{
+						if( score > historyHardscore){
+							console.log("2");
+							localStorage.setItem("historyHardscore",score);
+							topScore =  localStorage.getItem("historyHardscore");
+							}else{
+								topScore = localStorage.getItem("historyHardscore");
+							}
+					}
+					//文字信息
+					ctx.font = "bold 35px 黑体";
+					ctx.fillStyle = "white";
+					ctx.fillText("Your score:"+ score,30,230);
+					ctx.fillText("Best score:" + topScore,30,270);
+					//ctx.save();
+					ctx.font = "bold 42px 黑体";
+					ctx.fillStyle = "lightseagreen";
+					replayY -= 15;
+					if(replayY <= 350){
+						replayY = 350;
+					}
+					ctx.fillText("Tap To Replay",5,replayY);
+					
+					mycan.onclick = function(ev){
+						scene = 1;
+						titleY = 0;
+						gameoverY = 0;
+						replayY = 512;
+					}
+				}
+				else if(scene == 4){
+					//选择难度页面
+					ctx.clearRect(0,0,288,512);
+					bgX -= 3;
+					if(bgX <= -288){
+						bgX = 0;
+					}
+					//gameover的场景变量应该和scene2一样，不能重置
+					ctx.drawImage(imgEleObj.bg_day,bgX,0);
+					ctx.drawImage(imgEleObj.bg_day, 288+bgX, 0);
+					//地面
+					ctx.drawImage(imgEleObj.land, bgX, 400);//336*112
+					ctx.drawImage(imgEleObj.land, 288+bgX, 400);
+					
+					//文字信息
+					ctx.font = "bold 45px 黑体";
+					ctx.fillStyle = "orange";
+					ctx.fillText("Pattern",60,90);
+					//ctx.save();
+					ctx.font = "bold 30px 黑体";
+					ctx.fillStyle = "yellow";
+					ctx.fillText("Tap to choose",40,150);
+		
+					ctx.font = "bold 40px 黑体";
+					ctx.fillText("Level-Easy",40,220);
+					ctx.fillText("Level-Hard",40,290);
+					//ctx.restore();
+					
+					mycan.onclick = function(ev){
+						ev = ev || event;
+						var x = ev.offsetX;
+						var y = ev.offsetY;
+						
+						var x1 = 40,y1 = 180;
+						var x2 = 232,y2 = 220;
+						
+						
+						//点击到开始图标区域内时转换场景
+						if(x >= x1 && x <= x2 && y >= y1 && y <= y2){
+							//简单模式
+							scene = 2;
+							level = 1;
+							bgX = 0;
+							pipe_down_high = parseInt(Math.random()*(pipe_down_high_max - pipe_down_high_min + 1) + pipe_down_high_min)
+							pipe_up_high = 400 - pipe_down_high - 140;
+							pipeX = 300;
+							
+							//初始化分数
+							score = 0;
+							
+							//初始化小鸟参数
+							birdY = 100;
+							birdYstep = 0;
+							
+							isDown = true;
+							
+							birdY = 100; //小鸟Y坐标
+							birdYstep = 0; //小鸟y坐标变化量
+							
+							birdAlpha = 0;//旋转角度
+							
+							isAdd = true;
+							
+							}
+						if(x >= 40 && x <= 232 && y >= 250 && y <= 290){
+							//困难模式
+							level = 2;
+							scene = 5;
+							bgX = 0;
+							pipe_down_high = parseInt(Math.random()*(pipe_down_high_max - pipe_down_high_min + 1) + pipe_down_high_min)
+							pipe_up_high = 400 - pipe_down_high - 140;
+							pipeX = 300;
+							
+							//初始化分数
+							score = 0;
+							
+							//初始化小鸟参数
+							birdY = 100;
+							birdYstep = 0;
+							
+							isDown = true;
+							
+							birdY = 100; //小鸟Y坐标
+							birdYstep = 0; //小鸟y坐标变化量
+							
+							birdAlpha = 0;//旋转角度
+							
+							isAdd = true;
+							
+							}
+						}
+					}
+				},20);
+				
+				
+				
+			timer2 = setInterval(function(){
+					if(scene == 5){
+						//clearInterval(timer1);
+							mycan.onclick = "";
+							//清楚画布上的内容
+							ctx.clearRect(0,0,288,512);
+							bgX -= 3;
+							//若背景刚好超出左边框
+							if(bgX <= -288){
+								bgX = 0;
+							}
+							
+							//天空向左移动
+							ctx.drawImage(imgEleObj.bg_day,bgX,0);
+							//第一个图向左边移动，右边会有白色空缺，需要第二个图来向左移动弥补空缺
+							ctx.drawImage(imgEleObj.bg_day,288+bgX,0);
+							
+							//同理地面
+							ctx.drawImage(imgEleObj.land,bgX,400);
+							ctx.drawImage(imgEleObj.land,288+bgX,400);
+							
+							 
+							pipeX -= 3;
+							//管道宽60一旦全部移出画布，就重置
+							if(pipeX <= -60){
+								pipe_down_high = parseInt(Math.random()*(pipe_down_high_max - pipe_down_high_min + 1) + pipe_down_high_min);
+								pipe_up_high = 400 - 140 - pipe_down_high;
+								pipeX = 390;
+								isAdd = true; //新柱子出现时，重置jiafen参数
+							}
+							//管道52*320
+							//x向下开口的管道
+							ctx.drawImage(imgEleObj.pipe_down,0,320 - pipe_down_high,52,pipe_down_high,pipeX,0,52,pipe_down_high);
+							//向上开口的管道
+							ctx.drawImage(imgEleObj.pipe_up,0,0,52,pipe_up_high,pipeX,400-pipe_up_high,52,pipe_up_high);
+							
+							ctx.font = "25px 黑体";
+							ctx.fillStyle = "yellow";
+							ctx.fillText("Level Hard",15,25);
+							
+							//显示分数
+							var scoreStr = score.toString();
+							for(var i = 0 ;i < scoreStr.length; i++){
+								var  name =	"font_0" + (parseInt(scoreStr[i])+48);
+								ctx.drawImage(imgEleObj[name],i*24+100,100);
+							}
+							
+							if(isDown){
+								//小鸟下落计算
+								birdYstep++;
+								birdY += birdYstep/12;
+								birdAlpha = birdYstep/42;//旋转角度变化小一些
+							}else{
+								//上升
+								birdYstep++;
+								//上升高度 
+								birdY -= (35 - birdYstep)/12;
+								birdAlpha = -(35 - birdYstep)/36;
+								if(birdYstep >= 35){
+									birdYstep = 0;
+									isDown = true;
+									//console.log("像落了");
+								}
+							}
+							
+							
+						
+							ctx.save();//旋转前保存画面，不然整个画面都在转
+							//小鸟长宽48
+							//translate改变基准点默认是画布的（0，0）
+							//旋转是以基准点进行旋转的,现在要以小鸟为基准点进行旋转
+							//改变到小鸟的基准点进行旋转
+							//小鸟是垂直下落，x基准点不变，y在变化所以每次下落一点基准点的y要加上24
+							ctx.translate(100+24,birdY+24);
+							ctx.rotate(birdAlpha);
+							//中心点现在是小鸟中心，所以放图的时候，注意坐标-24，-24
+							ctx.drawImage(imgEleObj.bird0_0,-24,-24);
+							ctx.restore();//旋转完恢复背景图;
+						
+							mycan.onclick = function(){
+								isDown = false;
+								birdYstep = 0;
+							}
+						
+							//小鸟死亡方式
+							//1.撞到最顶,小鸟原图方框到画布最顶，但是方框里的小鸟离方框最顶还有10px距离
+								if(birdY <= -6){
+									scene = 3;
+							
+									}
+								if(birdY >= 400 - 48 + 10){
+									scene = 3;
+									}
+							//3.撞到管道
+								if(pipeX <= 100 + 48 - 11 && pipeX >= 100 - 52){
+								if(birdY + 10 <= pipe_down_high){
+									scene = 3;
+								}
+								if(birdY + 48 - 10 >= 400 - pipe_up_high){
+									scene = 3;
+								}
+								} 
+						
+								if(pipeX + 52 < 100 && isAdd){
+									score++;
+									isAdd = false;
+									console.log(score);
+								}
+						
+							}
+					/*
+					else if(scene == 3){
+							//场景3
+							//重置场景
+							ctx.clearRect(0,0,288,512);
+							
+							//gameover的场景变量应该和scene2一样，不能重置
+							ctx.drawImage(imgEleObj.bg_day,bgX,0);
+							ctx.drawImage(imgEleObj.bg_day, 288+bgX, 0);
+							//地面
+							ctx.drawImage(imgEleObj.land, bgX, 400);//336*112
+							ctx.drawImage(imgEleObj.land, 288+bgX, 400);
+							
+							//管道52*320
+							//x向下开口的管道
+							ctx.drawImage(imgEleObj.pipe_down,0,320 - pipe_down_high,52,pipe_down_high,pipeX,0,52,pipe_down_high);
+							//向上开口的管道
+							ctx.drawImage(imgEleObj.pipe_up,0,0,52,pipe_up_high,pipeX,400-pipe_up_high,52,pipe_up_high);
+							
+							
+							//小鸟落地,一碰到输点就会切换到scene3，那么落地画面应写在scene3中
+							birdY += 5;
+							//400是地面上总高，48小鸟框，10小鸟距离上边框
+							if(birdY >= 400- 48 + 10){
+								birdY = 400 - 48 + 10 //
+							}
+							
+							ctx.drawImage(imgEleObj.bird0_0,100,birdY);
+							
+							ctx.drawImage(imgEleObj.text_game_over,42,100);
+							
+							//文字信息
+							ctx.font = "35px 黑体";
+							ctx.fillStyle = "white";
+							ctx.fillText("Your score:"+ score,40,230);
+							ctx.save();
+							ctx.font = "35px 黑体";
+							ctx.fillStyle = "orange";
+							ctx.fillText("Tap to replay",40,290);
+							
+							mycan.onclick = function(ev){
+								scene = 1;
+								titleY = 0;
+								clearInterval(timer2);
+							}
+					}*/
+				
+					
+								
+					},10);
+		}
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</html>
+

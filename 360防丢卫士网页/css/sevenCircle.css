@@ -1,0 +1,246 @@
+#sevenCircle{
+
+}
+/*标题*/
+#sevenCircleTitle .title1{
+	background: url(../img/iconlist_2.png) -593px -657px;
+	width:363px;
+	height:47px;
+	margin:20px auto;
+}
+#sevenCircleTitle .title2{
+	margin:20px auto;
+	background: url(../img/iconlist_2.png) -1444px -589px;
+	width:903px;
+	height:56px;
+
+}
+
+#sevenCircleDiv .circleline1{
+	width:640px;
+	height: 150px;
+	margin: 0 auto;
+}
+#sevenCircleDiv .circleline1 div{
+	float: left;
+}
+#sevenCircleDiv .circleline2 div{
+	float: left;
+}
+
+#sevenCircleDiv .circleline2{
+	width:471px;
+	height:155px;
+	margin: 0 auto;
+}
+#div1{
+    width: 150px;
+    height: 150px;
+    background: url(../img/iconlist_2.png)-1657px 0px;
+}
+#div1:hover{
+    animation: myrotate 2s linear infinite alternate ;
+}
+@keyframes myrotate{
+    from{transform: rotate(0);}
+    to{transform: rotate(60deg);}
+}
+
+/* 补全七个小图的布局和另外六个动画 */
+#div2{
+    width: 150px;
+    height: 150px;
+    background: url(../img/iconlist_2.png)-1820px -0px;
+}
+#div2:hover{
+    animation: myrotate 2s linear infinite alternate;
+}
+@keyframes myrotate{
+    from{transform: rotate(0);}
+    to{transform: rotate(60deg);}
+}
+
+#div3{
+    width: 150px;
+    height: 150px;
+    background: url(../img/iconlist_2.png)-1983px -0px;
+}
+#div3:hover{
+    animation: myrotate 2s linear infinite alternate;
+}
+@keyframes myrotate{
+    from{transform: rotate(0);}
+    to{transform: rotate(60deg);}
+}
+
+#div4{
+    width: 150px;
+    height: 150px;
+    background: url(../img/iconlist_2.png)-2146px -0px;
+}
+#div4:hover{
+    animation: myrotate 2s linear infinite alternate;
+}
+@keyframes myrotate{
+    from{transform: rotate(0);}
+    to{transform: rotate(60deg);}
+}
+
+#div5{
+    width: 150px;
+    height: 150px;
+    background: url(../img/iconlist_2.png) -1747px -149px;
+}
+#div5:hover{
+    animation: myrotate 2s linear infinite alternate;
+}
+@keyframes myrotate{
+    from{transform: rotate(0);}
+    to{transform: rotate(60deg);}
+}
+
+#div6{
+    width: 150px;
+    height: 150px;
+    background: url(../img/iconlist_2.png) -1910px -149px;
+}
+#div6:hover{
+    animation: myrotate 2s linear infinite alternate;
+}
+@keyframes myrotate{
+    from{transform: rotate(0);}
+    to{transform: rotate(60deg);}
+}
+#div7{
+    width: 150px;
+    height: 150px;
+    background: url(../img/iconlist_2.png) -2075px -149px;
+}
+#div7:hover{
+    animation: myrotate 2s linear infinite alternate;
+	transition: all 2s;
+}
+@keyframes myrotate{
+    from{transform: rotate(0);}
+    to{transform: rotate(60deg);}
+}
+
+
+#iphone{
+	width:1920px;
+	height:650px;
+	background: url(../img/bg_2.jpg);
+	overflow:hidden;
+
+}
+
+#iphoneDiv{
+    width: 254px;
+    height: 534px;
+	margin:58px auto;
+}
+#iphoneinfo{
+	width:519px;
+	height:264px;
+	background:url(../img/iconlist_2.png) -0px -113px;
+	position: absolute;
+	top:1400px;
+	left:200px;
+	}
+/*若要在鼠标离开时恢复原图有过度那么在原元素再加一个transition*/
+#iphoneDiv img{
+	transition: all 0.5s linear;
+}
+/*#iphoneDiv img:hover{
+    animation: myiponerotate 1s linear forwards;
+}
+
+@keyframes myiponerotate{
+    from{transform: rotate(0);}
+    to{transform: rotate(30deg);}
+}*/
+#iphoneDiv img:hover{
+	transform:rotate(30deg);
+	transition:all 0.5s linear
+}
+
+
+/* 实现功能：鼠标离开，自动慢慢回到0度 */
+
+#sixCircle{
+    width: 696px;
+    height: 300px;
+    margin: 0 auto;
+}
+#sixCircle .foottitle{
+	width:150px;
+	height:80px;
+	line-height: 80px;
+	margin-top:20px;
+	
+}
+#sixCircle .div1{
+	margin-top:20px;
+    width: 82px;
+    height: 80px;
+    background: url(../img/iconlist_3.png) 0px 0px;
+}
+#sixCircle>div{
+	float: left;
+}
+#sixCircle .div1:hover{
+    animation: myopacity 0.3s linear infinite alternate;
+    
+}
+@keyframes myopacity{
+    from{
+        transform: rotate(0);
+        opacity: 1;
+    }
+    to{
+        transform: rotate(50deg);
+        opacity: 0.3;
+    }
+}
+
+/* 作业：把六个部分全部完成：布局和动画 */
+#sixCircle .div2{
+	margin-top:20px;
+    width: 82px;
+    height: 80px;
+    background: url(../img/iconlist_3.png) -84px 0px;
+}
+#sixCircle .div2:hover{
+    animation: myopacity 0.3s linear infinite alternate;}
+#sixCircle .div3{
+	margin-top:20px;
+    width: 82px;
+    height: 80px;
+    background: url(../img/iconlist_3.png) -169px 0px;
+}
+#sixCircle .div3:hover{
+    animation: myopacity 0.3s linear infinite alternate;}
+#sixCircle .div4{
+	margin-top:20px;
+    width: 82px;
+    height: 80px;
+    background: url(../img/iconlist_3.png) 0px -86px;
+}
+#sixCircle .div4:hover{
+    animation: myopacity 0.3s linear infinite alternate;}
+#sixCircle .div5{
+	margin-top:20px;
+    width: 82px;
+    height: 80px;
+    background: url(../img/iconlist_3.png) -85px -86px;
+}
+#sixCircle .div5:hover{
+    animation: myopacity 0.3s linear infinite alternate;}
+#sixCircle .div6{
+	margin-top:20px;
+    width: 82px;
+    height: 80px;
+    background: url(../img/iconlist_3.png) -169px -86px;
+}
+#sixCircle .div6:hover{
+    animation: myopacity 0.3s linear infinite alternate;}

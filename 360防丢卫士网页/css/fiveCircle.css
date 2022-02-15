@@ -1,0 +1,169 @@
+#fiveCircle{
+    width: 1920px;
+    height: 700px;
+    margin: 0 auto;
+    background: url(../img/bg_1.jpg);
+    position: relative;
+}
+#twoCode{
+    position: absolute;
+    width: 180px;
+    height: 210px;
+    right: 170px;
+    background: url(../img/iconlist_2.png) -1654px -299px;
+}
+#title360{
+    width: 455px;
+    height: 100px;
+    position: absolute;
+    top: 150px;
+    left: 733px;
+    background: url(../img/iconlist_1.png) -868px 0;
+}
+
+#fiveCircleDiv{
+    position: absolute;
+    left: 570px;
+    top: 400px;
+    width: 770px;
+    height: 191px;
+}
+#greenCircle,#yellowCircle,#blueCircle,#redCircle,#orangeCircle{
+    position: absolute;
+    width: 173px;
+    height: 173px;
+}
+#greenCircle{
+    background: url(../img/iconlist_1.png);
+    animation: greenCircle 1s linear;
+}
+#yellowCircle{
+    left: 150px;
+    background: url(../img/iconlist_1.png) -174px;
+    animation: yellowCircle 1.5s linear;
+}
+#blueCircle{
+    left: 300px;
+    background: url(../img/iconlist_1.png) -348px;
+    animation: blueCircle 2s linear;
+}
+#redCircle{
+    left: 450px;
+    background: url(../img/iconlist_1.png) -522px;
+    animation: redCircle 2.5s linear;
+}
+#orangeCircle{
+    left: 600px;
+    background: url(../img/iconlist_1.png) -696px;
+    animation: orangeCircle 3s linear;
+}
+#greenShadow,#yellowShadow,#blueShadow,#redShadow,#orangeShadow{
+    position: absolute;
+    width: 173px;
+    height: 18px;
+    top: 173px;
+    background: url(../img/iconlist_1.png) -872px -130px;
+}
+#greenShadow{
+	animation:greenshade 1s linear;
+}
+#yellowShadow{
+    left: 150px;
+	animation: yellowshade 1.5s linear;
+}
+#blueShadow{
+    left: 300px;
+	animation: blueShade 2s linear;
+}
+#redShadow{
+    left: 450px;
+	animation: redshade 2.5s linear;
+}
+#orangeShadow{
+    left: 600px;
+	animation: orangeShade 3s linear;
+}
+
+@keyframes greenCircle{
+    from{
+        transform: translateX(-300px);
+    }
+    to{
+        transform: translateX(0px);
+    }
+}
+@keyframes yellowCircle{
+    from{
+        transform: translateX(-450px);
+    }
+    to{
+        transform: translateX(0px);
+    }
+}
+@keyframes blueCircle{
+    from{
+        transform: translateX(-600px);
+    }
+    to{
+        transform: translateX(0px);
+    }
+}
+@keyframes redCircle{
+    from{
+        transform: translateX(-750px);
+    }
+    to{
+        transform: translateX(0px);
+    }
+}
+@keyframes orangeCircle{
+    from{
+        transform: translateX(-900px) rotate(0);
+    }
+    to{
+        transform: translateX(0px) rotate(360deg);
+    }
+}
+
+/* 作业：把阴影运动效果添加上 */
+@keyframes greenshade{
+	from{
+		transform:translateX(-300px);
+	}
+	to{
+		transform:translateX(0px);
+	}
+}
+
+@keyframes yellowshade{
+	from{
+		transform:translateX(-450px);
+	}
+	to{
+		transform:translateX(0px);
+	}
+}
+@keyframes blueShade{
+	from{
+		transform:translateX(-600px);
+	}
+	to{
+		transform:translateX(0px);
+	}
+}
+@keyframes redshade{
+	from{
+		transform:translateX(-750px);
+	}
+	to{
+		transform:translateX(0px);
+	}
+}
+@keyframes orangeShade{
+	from{
+		transform:translateX(-900px);
+	}
+	to{
+		transform:translateX(0px);
+	}
+}

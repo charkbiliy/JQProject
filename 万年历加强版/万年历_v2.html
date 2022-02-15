@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style>
+		*{
+		        padding: 0;
+		        margin: 0;
+		    }
+		    #box{
+		        width: 600px;
+		        margin: 50px auto;
+		        border: 1px solid blue;
+		    }
+		    #box header{
+		        height: 70px;
+		        line-height: 70px;
+		        text-align: center;
+		        color: white;
+		        background-color: #17a;
+		        padding: 0 10px;
+		    }
+		    #box span{
+		        cursor: pointer;
+		    }
+		    #left,#lefty{
+				margin-right: 20px;
+		        float: left;
+		    }
+		    #right,#righty{
+				
+				margin-left: 20px;
+		        float: right;
+		    }
+		    #title{
+		        font-size: 30px;
+		    }
+		    #box table th,#box table td{
+		        border: 1px solid #ccc;
+		        text-align: center;
+		        height: 50px;
+		    }
+			#box table .wk{
+				width:60px;
+			}
+		    .redTxt{
+		        color: red;
+		    }
+			
+	</style>
+	<body>
+	    <div id="box">
+	        <header>
+				<span id="lefty"> << </span>
+	            <span id="left"> < </span>
+	            <span id="righty"> >> </span>
+				<span id="right"> > </span>
+	            <div id="title">XXXX年XX月</div>
+	        </header>
+	        <table width="100%" cellspacing="0">
+	            <thead>
+	                <tr>
+	                   <th class="wk">weekth</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th class="redTxt">Sun</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+					<div class="div1"></div>
+					<tr>
+	                    <td class="wk">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+	                </tr>
+	                <tr>
+	                     <td class="wk">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+	                </tr>
+	                <tr>
+	                     <td class="wk">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+	                </tr>
+	                <tr>
+	                    <td class="wk">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+	                </tr>
+	                <tr>
+	                     <td class="wk">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+	                </tr>
+	                <tr>
+	                    <td class="wk">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+	                </tr>
+	                
+	            </tbody>
+	        </table>
+	    </div>
+	</body>
+	<script src="jquery3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+			var defaulteDate = new Date();
+			console.log(defaulteDate);
+			var year = defaulteDate.getFullYear();
+			console.log(year);
+			var month = defaulteDate.getMonth() + 1;
+			console.log(month);
+			$("#title").text(year +"年" + month + "月" );
+			getweeknum();
+			showDate();
+			$("#left").click(function(){
+				month--;
+				if(month == 0){
+					month = 12;
+					year--;
+				}
+				$("#title").text(year +"年" + month + "月");
+				getweeknum();
+				showDate();
+			})
+			$("#right").click(function(){
+				month++;
+				if(month == 13){
+					month = 1;
+					year++;
+				}
+				$("#title").text(year +"年" + month + "月");
+				getweeknum();
+				showDate();
+			});
+			$("#righty").click(function(){
+				year++;
+				$("#title").text(year +"年" + month + "月");
+				getweeknum();
+				showDate();
+			});
+			$("#lefty").click(function(){
+				year--;
+				$("#title").text(year +"年" + month + "月");
+				getweeknum();
+				showDate();
+			})
+			
+			function showDate(){
+				var tempDate = new Date();
+				var todayDate = tempDate.getDate();
+				var todayMonth  = tempDate.getMonth()+1;
+				var todayYear = tempDate.getFullYear();
+				
+				console.log(todayYear);
+				
+				
+				//当月第一天是周几（1,2,3,4,5,6,0）；
+				//上面语句定义的month是加过1的，所以当月需要减掉1
+				var tempDate = new Date(year,month-1,1);
+				var  firstDay = tempDate.getDay();
+				console.log(firstDay);
+				//实际月份下一个月的第0天表示实际月份的最后一天
+				var tempDate = new Date(year,month,0);
+				var monthDays = tempDate.getDate();
+				console.log(monthDays);
+				//上个月的最后一天
+				var tempDate = new Date(year,month-1,0);
+				var lastmonthDays = tempDate.getDate();
+				console.log(lastmonthDays);
+				//var tdArrt = [];
+				var wkArr = $("tbody .wk");
+				console.log(wkArr);
+				
+				var tdArr = $("tbody td:not([class='wk'])");
+				//$.each(tdArr,function(idx,trl){
+					//tr
+				//})
+				console.log(tdArr);
+				tdArr.empty();
+			
+				if(firstDay == 0 ){
+					firstDay = 6;
+				}else{firstDay--;}
+				//显示剩余上个月的日期
+				for(var j = firstDay-1,t = lastmonthDays;j >= 0;j--,t--){
+					tdArr[j].innerText = t;
+					tdArr[j].style.color="grey";
+				}
+				//显示这个月的日期
+				var idx=0;
+				$("tbody td:not([class='wk'])").css("background","white"); 
+				for(var i = firstDay,t = 1;t <= monthDays;i++,t++ ){
+					console.log(t);
+					tdArr[i].innerText = t;
+					tdArr[i].style.color="black";
+					idx = i;
+					//显示当日的背景色改变
+					
+					if(year == todayYear &&month == todayMonth && todayDate -1 == i){
+						console.log(i);
+						console.log(tdArr[i]);
+						tdArr[i+firstDay].style.backgroundColor = "orange";
+					}
+					
+				}
+				//显示下个月的日期
+				for(var i = idx+1,t = 1;i < tdArr.length;i++,t++){
+					tdArr[i].innerText = t;
+					tdArr[i].style.color="grey";
+					
+				}
+				
+				//var weeks1 = $("tbody td:not([class='wk'])").eq(0).text();
+				//console.log(weeks1);
+			}
+				
+			function getweeknum(){
+			var tempmonth = month;
+			var tempday = new Date(year,month-1,1);
+			var firstDay = new Date(year,0,1);
+			var dayOfweek = tempday.getDay();
+			console.log(dayOfweek);
+			var gapsdays = 0;
+			
+			//一月一号前几天的上几个月的日子需要加进去算总周数
+			if(dayOfweek == 0){
+				gapdays = 6;
+			}else{
+				gapdays = dayOfweek-1;
+			}
+			
+			//console.log(gaptime);
+			var d = Math.ceil((tempday - firstDay)/1000/60/60/24) + gapdays;
+			//console.log(d);
+			var weeknum = Math.ceil(d/7);
+			//console.log(weeknum);
+			var wklist = $("tr .wk:not(:first)");
+			//console.log(wklist);
+			$.each(wklist,function(idx,wkl){
+				$(wkl).text(weeknum);
+				weeknum++;
+			})
+			//当前月如果等于12,最后一行应该为下一年的第一周
+			if(month==12){
+				$("tr .wk:last").text(1);
+			}
+			}
+		});
+	</script>
+</html>

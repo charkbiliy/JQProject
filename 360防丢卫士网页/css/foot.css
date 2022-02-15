@@ -1,0 +1,31 @@
+#footer{
+	width:1372px;
+	height:200px;
+	padding-left:548px;
+	background-color: #666666;
+	overflow: hidden;
+	}
+#footer >div{
+	float: left;
+	margin-top:30px;
+	margin-right: 10px;
+}
+#footer .ftitle{
+	width:200px;
+	height:200px;
+	color: #CCCCCC;
+}
+#footer .ftitle p{
+	margin-top: 10px;
+}
+
+#xinlang{
+	width:212px;
+	height:117px;
+	background:url(../img/iconlist_2.png) 0px -585px;
+}
+#weixin{
+	width:212px;
+	height:117px;
+	background: url(../img/iconlist_2.png) -216px -590px;
+}
